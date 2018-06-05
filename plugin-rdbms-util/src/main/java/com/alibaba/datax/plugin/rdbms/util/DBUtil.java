@@ -372,8 +372,8 @@ public final class DBUtil {
         }
 
         Properties prop = new Properties();
-        prop.put("user", user);
-        prop.put("password", pass);
+        prop.put("user", "yujue_tmp_r");
+        prop.put("password", "");
 
         if (dataBaseType == DataBaseType.Oracle) {
             //oracle.net.READ_TIMEOUT for jdbc versions < 10.1.0.5 oracle.jdbc.ReadTimeout for jdbc versions >=10.1.0.5
@@ -528,6 +528,28 @@ public final class DBUtil {
 
         return columns;
     }
+
+    //获取主键列表
+    public static List<String> getPrimaryKeys(DataBaseType dataBaseType, Connection conn, String tableName, String basicMsg) {
+        List<String> columns = new ArrayList<String>();
+        ResultSet primaryKeysRs = null;
+        try {
+            DatabaseMetaData dbMetaData = conn.getMetaData();
+            primaryKeysRs = dbMetaData.getPrimaryKeys(null, null, tableName);
+
+            while (primaryKeysRs.next()) {
+                columns.add(primaryKeysRs.getString("COLUMN_NAME"));
+            }
+        }
+        catch(SQLException e){
+            throw RdbmsException.asQueryException(dataBaseType, e, "获取主键", tableName, null);
+        } finally{
+            DBUtil.closeDBResources(primaryKeysRs, null, conn);
+        }
+
+        return columns;
+    }
+
 
     /**
      * @return Left:ColumnName Middle:ColumnType Right:ColumnTypeName

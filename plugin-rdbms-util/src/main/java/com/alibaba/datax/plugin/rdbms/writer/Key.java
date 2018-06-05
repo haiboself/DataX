@@ -1,6 +1,9 @@
 package com.alibaba.datax.plugin.rdbms.writer;
 
 public final class Key {
+    //writer忽略主键
+    public final static String IGNORE_KEY = "ignoreKey";
+
     public final static String JDBC_URL = "jdbcUrl";
 
     public final static String USERNAME = "username";

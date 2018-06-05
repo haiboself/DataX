@@ -65,7 +65,9 @@ public class OracleReader extends Reader {
 		private void dealFetchSize(Configuration originalConfig) {
 			int fetchSize = originalConfig.getInt(
 					com.alibaba.datax.plugin.rdbms.reader.Constant.FETCH_SIZE,
-					Constant.DEFAULT_FETCH_SIZE);
+					100);
+
+			System.out.println("fetchSize: " + fetchSize);
 			if (fetchSize < 1) {
 				throw DataXException
 						.asDataXException(DBUtilErrorCode.REQUIRED_VALUE,

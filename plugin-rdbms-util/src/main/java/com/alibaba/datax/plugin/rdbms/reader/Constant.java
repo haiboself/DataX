@@ -17,7 +17,7 @@ public final class Constant {
 
     public static String IS_TABLE_MODE = "isTableMode";
 
-    public final static String FETCH_SIZE = "fetchSize";
+    public final static String FETCH_SIZE = "DEFAULT_FETCH_SIZE";
 
     public static String QUERY_SQL_TEMPLATE_WITHOUT_WHERE = "select %s from %s ";
 
