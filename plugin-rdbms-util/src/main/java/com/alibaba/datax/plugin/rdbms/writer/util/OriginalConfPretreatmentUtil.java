@@ -117,7 +117,12 @@ public final class OriginalConfPretreatmentUtil {
                     final List<String> primaryKeys = DBUtil.getPrimaryKeys(DATABASE_TYPE,connectionFactory.getConnecttion(),oneTable, connectionFactory.getConnectionInfo());
 
                     LOG.info("忽略主键: " + StringUtils.join(primaryKeys,","));
-                    allColumns = allColumns.stream().filter(c -> !primaryKeys.contains(c)).collect(Collectors.toList());
+
+                    for(String pk : primaryKeys){
+                        if(allColumns.contains(pk)){
+                            allColumns.remove(pk);
+                        }
+                    }
                 }
 
                 LOG.info("columns: " + StringUtils.join(allColumns,";"));
